@@ -45,3 +45,5 @@ fn main() {
         println!();
     }
 }
+
+println!('test');
