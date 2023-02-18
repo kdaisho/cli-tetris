@@ -1,6 +1,68 @@
-fn main() {
-    let minos = [[0, 0, 0, 0], [0, 0, 0, 0], [1, 1, 1, 1], [0, 0, 0, 0]];
+enum BlockKind {
+    I,
+    O,
+    S,
+    Z,
+    J,
+    L,
+    T,
+}
 
+type BlockShape = [[usize; 4]; 4];
+
+const BLOCKS: [BlockShape; 7] = [
+    // I
+    [
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [1, 1, 1, 1],
+        [0, 0, 0, 0]
+    ],
+    // O
+    [
+        [0, 0, 0, 0],
+        [0, 1, 1, 0],
+        [0, 1, 1, 0],
+        [0, 0, 0, 0]
+    ],
+    // S
+    [
+        [0, 0, 0, 0],
+        [0, 1, 1, 0],
+        [1, 1, 0, 0],
+        [0, 0, 0, 0]
+    ],
+    // Z
+    [
+        [0, 0, 0, 0],
+        [1, 1, 0, 0],
+        [0, 1, 1, 0],
+        [0, 0, 0, 0]
+    ],
+    // J
+    [
+        [0, 0, 0, 0],
+        [1, 0, 0, 0],
+        [1, 1, 1, 0],
+        [0, 0, 0, 0]
+    ],
+    // L
+    [
+        [0, 0, 0, 0],
+        [0, 0, 1, 0],
+        [1, 1, 1, 0],
+        [0, 0, 0, 0]
+    ],
+    // T
+    [
+        [0, 0, 0, 0],
+        [0, 1, 0, 0],
+        [1, 1, 1, 0],
+        [0, 0, 0, 0]
+    ],
+];
+
+fn main() {
     let field = [
         [1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -30,7 +92,13 @@ fn main() {
 
     for y in 0..4 {
         for x in 0..4 {
-            field_buf[y + 8][x + 4] |= minos[y][x];
+            field_buf[y + 2][x + 2] = BLOCKS[BlockKind::I as usize][y][x];
+            field_buf[y + 2][x + 7] = BLOCKS[BlockKind::O as usize][y][x];
+            field_buf[y + 6][x + 2] = BLOCKS[BlockKind::S as usize][y][x];
+            field_buf[y + 6][x + 7] = BLOCKS[BlockKind::Z as usize][y][x];
+            field_buf[y + 10][x + 2] = BLOCKS[BlockKind::J as usize][y][x];
+            field_buf[y + 10][x + 7] = BLOCKS[BlockKind::L as usize][y][x];
+            field_buf[y + 14][x + 2] = BLOCKS[BlockKind::T as usize][y][x];
         }
     }
 
@@ -45,5 +113,3 @@ fn main() {
         println!();
     }
 }
-
-println!('test');
